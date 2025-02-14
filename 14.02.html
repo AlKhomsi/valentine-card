@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Открытка на 14 февраля</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #ffe6e6;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        .card {
+            text-align: center;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .buttons {
+            margin-top: 20px;
+        }
+
+        button {
+            padding: 10px 20px;
+            margin: 5px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        #yesButton {
+            background-color: #ff4d4d;
+            color: white;
+        }
+
+        #noButton {
+            background-color: #ccc;
+            color: black;
+        }
+
+        .hearts {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .heart {
+            position: absolute;
+            color: red;
+            font-size: 20px;
+            animation: float 5s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0); }
+        }
+
+        .message {
+            display: none;
+            font-size: 24px;
+            color: #ff4d4d;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h1>💖 14 февраля 💖</h1>
+        <p>Откроешь открытку?</p>
+        <div class="buttons">
+            <button id="yesButton">Да</button>
+            <button id="noButton">Нет</button>
+        </div>
+        <div class="message" id="message">
+            Зачиль сегодян на максимум и хорших выходных💕
+        </div>
+    </div>
+
+    <div class="hearts" id="hearts"></div>
+
+    <script>
+        const yesButton = document.getElementById('yesButton');
+        const noButton = document.getElementById('noButton');
+        const message = document.getElementById('message');
+        const heartsContainer = document.getElementById('hearts');
+
+        let yesCount = 0;
+        let noCount = 0;
+
+        noButton.addEventListener('click', () => {
+            noCount++;
+            if (noCount === 1) {
+                noButton.style.transform = 'scale(0.8)';
+            } else {
+                noButton.style.position = 'absolute';
+                noButton.style.left = `${Math.random() * 80}%`;
+                noButton.style.top = `${Math.random() * 80}%`;
+                noButton.style.transform = `scale(${0.8 - noCount * 0.1})`;
+            }
+        });
+
+        yesButton.addEventListener('click', () => {
+            yesCount++;
+            if (yesCount === 1) {
+                message.style.display = 'block';
+                noButton.style.display = 'none';
+                yesButton.style.display = 'none';
+                createHearts();
+            }
+        });
+
+        function createHearts() {
+            const colors = ['#ff4d4d', '#ff80bf', '#ff9999', '#ffb3b3'];
+            for (let i = 0; i < 50; i++) {
+                const heart = document.createElement('div');
+                heart.classList.add('heart');
+                heart.innerHTML = '💖';
+                heart.style.left = `${Math.random() * 100}%`;
+                heart.style.top = `${Math.random() * 100}%`;
+                heart.style.fontSize = `${Math.random() * 30 + 20}px`;
+                heart.style.color = colors[Math.floor(Math.random() * colors.length)];
+                heart.style.animationDuration = `${Math.random() * 5 + 3}s`;
+                heartsContainer.appendChild(heart);
+            }
+        }
+    </script>
+</body>
+</html>
